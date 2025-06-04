@@ -8,6 +8,7 @@ import {
   LogOut,
   User,
 } from "lucide-react"
+import { useSession } from "next-auth/react"
 
 import {
   Avatar,
@@ -30,19 +31,23 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 
-export function NavUser({
-  user
-}) {
-  const { isMobile } = useSidebar()
+export function NavUser() {
+  const { data: session, status } = useSession();
+  const { isMobile } = useSidebar();
+
+  if (status === "loading") return null;
+  if (!session?.user) return null;
+  const user = session.user;
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' })
-      window.location.href = '/login'
+      // Folosește signOut de la next-auth pentru logout corect
+      const { signOut } = await import("next-auth/react");
+      signOut({ callbackUrl: "/login" });
     } catch (error) {
-      console.error('Eroare la logout:', error)
+      console.error('Eroare la logout:', error);
     }
-  }
+  };
 
   return (
     (<SidebarMenu>

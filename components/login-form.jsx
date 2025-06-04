@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import axios from "axios"
+import { signIn } from "next-auth/react"
 
 export function LoginForm({
   className,
@@ -22,7 +22,8 @@ export function LoginForm({
 
   const handleInputChange = (e) => {
     const { id, value } = e.target
-    setFormData(prev => ({      ...prev,
+    setFormData(prev => ({
+      ...prev,
       [id]: value
     }))
   }
@@ -30,28 +31,23 @@ export function LoginForm({
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    setError('')
-
+    setError("")
     try {
-      const response = await axios.post('/api/auth/login', {
+      const result = await signIn("credentials", {
+        redirect: false,
         email: formData.email,
-        parola: formData.password
+        password: formData.password,
+        callbackUrl: "/dashboard"
       })
-
-      if (response.status === 200) {
-        // Login successful
-        console.log('Login reușit:', response.data)
-        router.push('/dashboard')
+      if (result?.ok) {
+        router.push("/dashboard")
+        router.refresh()
+      } else {
+        setError("Email sau parolă incorecte")
       }
     } catch (error) {
-      console.error('Eroare login:', error)
-      if (error.response?.data?.error) {
-        setError(error.response.data.error)
-      } else if (error.response?.status === 401) {
-        setError('Credențiale invalide')
-      } else {
-        setError('Eroare de conexiune. Încearcă din nou.')
-      }
+      console.error("Login error:", error)
+      setError("Eroare de conexiune")
     } finally {
       setIsLoading(false)
     }

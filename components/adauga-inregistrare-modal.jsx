@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Upload, X, FileText, Loader2 } from 'lucide-react'
+import { Upload, X, FileText, Loader2, Plus } from 'lucide-react'
 import { notifySuccess, notifyError } from '@/lib/notifications'
 import { DatePicker } from '@/components/ui/date-picker'
 
@@ -543,15 +543,17 @@ export function AdaugaInregistrareModal({
   }
   // Verifică dacă tipul de document este valid
   const isTipDocumentValid = formData.tipDocumentId && formData.tipDocumentId !== ''
-
   return (
     <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen}>
-      {/* Afișează DialogTrigger doar dacă există trigger explicit */}
-      {trigger && (
-        <DialogTrigger asChild>
-          {trigger}
-        </DialogTrigger>
-      )}
+      {/* Afișează DialogTrigger */}
+      <DialogTrigger asChild>
+        {trigger || (
+          <Button className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            Adaugă înregistrare
+          </Button>
+        )}
+      </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Adaugă înregistrare nouă</DialogTitle>

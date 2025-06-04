@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { QueryProvider } from "@/components/QueryProvider";
+import SessionProviderWrapper from "@/components/SessionProviderWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +25,12 @@ export default function RootLayout({ children }) {
     <html lang="ro">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >        <QueryProvider>
-        {children}
-        </QueryProvider>
-
+      >
+        <SessionProviderWrapper>
+          <QueryProvider>
+            {children}
+          </QueryProvider>
+        </SessionProviderWrapper>
         <Toaster />
       </body>
     </html>
