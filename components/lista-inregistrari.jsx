@@ -411,33 +411,111 @@ export const ListaInregistrari = forwardRef(function ListaInregistrari({ departm
     () => getColumns(formatDate, getStatusBadge, handleView, handleEdit, handleDelete),
     [formatDate, getStatusBadge]
   )
-
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <div>
-          <Skeleton className="h-8 w-[400px] mb-2" />
-          <Skeleton className="h-4 w-[300px]" />
-        </div>
-        <Card>
-          <CardHeader>
-            <Skeleton className="h-6 w-[200px]" />
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="flex items-center space-x-4">
-                  <Skeleton className="h-4 w-[100px]" />
-                  <Skeleton className="h-4 w-[80px]" />
-                  <Skeleton className="h-4 w-[150px]" />
-                  <Skeleton className="h-4 w-[200px]" />
-                  <Skeleton className="h-4 w-[120px]" />
-                  <Skeleton className="h-4 w-[80px]" />
+      <div className="space-y-6 mt-6">
+        {/* Skeleton pentru DataTable */}
+        <div className="w-full space-y-4">
+          {/* Toolbar - Search și Column visibility */}
+          <div className="flex items-center justify-between py-4">
+            <Skeleton className="h-10 w-[300px]" /> {/* Search input */}
+            <Skeleton className="h-10 w-[120px]" /> {/* Columns button */}
+          </div>
+          
+          {/* Tabelul */}
+          <div className="rounded-md border">
+            {/* Header */}
+            <div className="border-b bg-muted/50 p-0">
+              <div className="flex items-center">
+                <Skeleton className="h-12 w-[140px] border-r" /> {/* Nr. Înregistrare */}
+                <Skeleton className="h-12 w-[140px] border-r" /> {/* Data Înregistrare */}
+                <Skeleton className="h-12 w-[120px] border-r" /> {/* Număr Document */}
+                <Skeleton className="h-12 w-[120px] border-r" /> {/* Data Document */}
+                <Skeleton className="h-12 w-[120px] border-r" /> {/* Expeditor */}
+                <Skeleton className="h-12 w-[120px] border-r" /> {/* Destinatar */}
+                <Skeleton className="h-12 w-[200px] border-r" /> {/* Obiect */}
+                <Skeleton className="h-12 w-[140px] border-r" /> {/* Confidențialitate */}
+                <Skeleton className="h-12 w-[100px] border-r" /> {/* Status */}
+                <Skeleton className="h-12 w-[100px]" />        {/* Acțiuni */}
+              </div>
+            </div>
+            
+            {/* Body rows */}
+            <div className="divide-y">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="flex items-center hover:bg-muted/50">
+                  {/* Nr. Înregistrare cu icon */}
+                  <div className="flex items-center gap-2 p-4 w-[140px] border-r">
+                    <Skeleton className="h-4 w-4 rounded" />
+                    <Skeleton className="h-4 w-[80px]" />
+                  </div>
+                  
+                  {/* Data Înregistrare cu icon */}
+                  <div className="flex items-center gap-1 p-4 w-[140px] border-r">
+                    <Skeleton className="h-4 w-4 rounded" />
+                    <Skeleton className="h-4 w-[90px]" />
+                  </div>
+                  
+                  {/* Număr Document cu icon */}
+                  <div className="flex items-center gap-2 p-4 w-[120px] border-r">
+                    <Skeleton className="h-4 w-4 rounded" />
+                    <Skeleton className="h-4 w-[70px]" />
+                  </div>
+                  
+                  {/* Data Document cu icon */}
+                  <div className="flex items-center gap-1 p-4 w-[120px] border-r">
+                    <Skeleton className="h-4 w-4 rounded" />
+                    <Skeleton className="h-4 w-[80px]" />
+                  </div>
+                  
+                  {/* Expeditor cu icon */}
+                  <div className="flex items-center gap-1 p-4 w-[120px] border-r">
+                    <Skeleton className="h-4 w-4 rounded" />
+                    <Skeleton className="h-4 w-[80px]" />
+                  </div>
+                  
+                  {/* Destinatar cu icon */}
+                  <div className="flex items-center gap-1 p-4 w-[120px] border-r">
+                    <Skeleton className="h-4 w-4 rounded" />
+                    <Skeleton className="h-4 w-[85px]" />
+                  </div>
+                  
+                  {/* Obiect */}
+                  <div className="p-4 w-[200px] border-r">
+                    <Skeleton className="h-4 w-[160px] mb-1" />
+                    <Skeleton className="h-3 w-[120px]" />
+                  </div>
+                  
+                  {/* Confidențialitate cu icon */}
+                  <div className="flex items-center gap-1 p-4 w-[140px] border-r">
+                    <Skeleton className="h-4 w-4 rounded" />
+                    <Skeleton className="h-4 w-[90px]" />
+                  </div>
+                  
+                  {/* Status - badge */}
+                  <div className="p-4 w-[100px] border-r">
+                    <Skeleton className="h-6 w-[70px] rounded-full" />
+                  </div>
+                  
+                  {/* Acțiuni - dropdown */}
+                  <div className="p-4 w-[100px] flex justify-center">
+                    <Skeleton className="h-8 w-8 rounded" />
+                  </div>
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+          
+          {/* Paginare */}
+          <div className="flex items-center justify-between space-x-2 py-4">
+            <Skeleton className="h-4 w-[200px]" /> {/* Text info */}
+            <div className="flex items-center space-x-2">
+              <Skeleton className="h-8 w-[100px]" /> {/* Rows per page */}
+              <Skeleton className="h-8 w-8" />      {/* Previous button */}
+              <Skeleton className="h-8 w-8" />      {/* Next button */}
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

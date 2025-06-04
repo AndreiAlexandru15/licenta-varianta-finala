@@ -45,15 +45,57 @@ import axios from "axios"
 // Skeleton pentru tabel
 function TableSkeleton() {
   return (
-    <div className="space-y-3">
-      {[...Array(5)].map((_, i) => (
-        <div key={i} className="flex items-center space-x-4">
-          <Skeleton className="h-4 w-[200px]" />
-          <Skeleton className="h-4 w-[100px]" />
-          <Skeleton className="h-4 w-[300px]" />
-          <Skeleton className="h-4 w-[80px]" />
-          <Skeleton className="h-4 w-[80px]" />
-          <Skeleton className="h-8 w-[100px]" />
+    <div className="space-y-4">
+      {/* Header-ul tabelului */}
+      <div className="flex items-center space-x-4 border-b pb-2">
+        <Skeleton className="h-4 w-[120px]" /> {/* Nume */}
+        <Skeleton className="h-4 w-[80px]" />  {/* Cod */}
+        <Skeleton className="h-4 w-[200px]" /> {/* Descriere */}
+        <Skeleton className="h-4 w-[100px]" /> {/* Înregistrări */}
+        <Skeleton className="h-4 w-[80px]" />  {/* Status */}
+        <Skeleton className="h-4 w-[60px]" />  {/* An */}
+        <Skeleton className="h-4 w-[120px]" /> {/* Data creării */}
+        <Skeleton className="h-4 w-[120px]" /> {/* Acțiuni */}
+      </div>
+      
+      {/* Rândurile tabelului */}
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className="flex items-center space-x-4 py-3">
+          {/* Nume cu icon */}
+          <div className="flex items-center gap-2 w-[120px]">
+            <Skeleton className="h-4 w-4 rounded" />
+            <Skeleton className="h-4 w-[80px]" />
+          </div>
+          
+          {/* Cod */}
+          <Skeleton className="h-6 w-[60px] rounded-full" />
+          
+          {/* Descriere */}
+          <Skeleton className="h-4 w-[180px]" />
+          
+          {/* Înregistrări cu icon */}
+          <div className="flex items-center gap-1 w-[100px]">
+            <Skeleton className="h-4 w-4 rounded" />
+            <Skeleton className="h-4 w-[30px]" />
+          </div>
+          
+          {/* Status */}
+          <Skeleton className="h-6 w-[60px] rounded-full" />
+          
+          {/* An */}
+          <Skeleton className="h-4 w-[50px]" />
+          
+          {/* Data creării cu icon */}
+          <div className="flex items-center gap-1 w-[120px]">
+            <Skeleton className="h-4 w-4 rounded" />
+            <Skeleton className="h-4 w-[80px]" />
+          </div>
+          
+          {/* Acțiuni - buton + dropdown */}
+          <div className="flex items-center gap-2 w-[120px] justify-end">
+            <Skeleton className="h-8 w-[90px] rounded" /> {/* Buton Vizualizează */}
+            <Skeleton className="h-8 w-8 rounded" />      {/* Dropdown */}
+          </div>
         </div>
       ))}
     </div>
@@ -132,18 +174,18 @@ export function ListaRegistre({ departmentId }) {
       onConfirm: () => deleteRegistruMutation.mutate({ id, nume })
     })
   }
-
   const isLoading = isLoadingRegistre || isLoadingDepartament
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <div>
-          <Skeleton className="h-8 w-[300px] mb-2" />
-          <Skeleton className="h-4 w-[400px]" />
-        </div>
+      <div className="space-y-6 mt-8">
+        {/* Header skeleton pentru Card */}
         <Card>
           <CardHeader>
-            <Skeleton className="h-6 w-[200px]" />
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-5 w-5 rounded" />
+              <Skeleton className="h-6 w-[180px]" />
+            </div>
+            <Skeleton className="h-4 w-[280px] mt-2" />
           </CardHeader>
           <CardContent>
             <TableSkeleton />
